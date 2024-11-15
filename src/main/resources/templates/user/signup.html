@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+    <h1 th:if="${msg !=null}" th:text="${msg}"></h1>
+    <form action="/user/signup" method="post" th:object="${memberShipDTO}">
+
+
+        이름 : <input name="name" th:field="*{name}" class="name"> <br>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"  class="fieldError"></p>
+
+        이메일 : <input type="email" name="email" th:field="*{email}"> <br>
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"  class="fieldError"></p>
+
+        <!--나중에 input type password를 추가할것-->
+        비밀번호 : <input name="password" th:field="*{password}" required minlength="10", maxlength="16"> <br>
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"  class="fieldError"></p>
+
+
+        주소 : <input name="address" th:field="*{address}" required> <br>
+        <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"  class="fieldError"></p>
+
+        <button class="signup" type="submit">가입하기</button>
+        <button>로그인</button>
+
+
+    </form>
+<script>
+    $("form").on("submit", function () {
+        let nameval = $(".name").val()
+
+        if (nameval.length <2 || nameval.length >= 10){
+            alert("이름은 2 ~ 10 글자 이내로 입력해주세요.")
+            return false;
+        }
+    })
+    let signup = $(".signup");
+    signup.on("click", "button",function () {
+           alert("회원가입에 성공하였습니다.")
+
+    })
+
+
+
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
